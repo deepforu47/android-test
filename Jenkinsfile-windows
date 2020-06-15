@@ -42,7 +42,7 @@ pipeline {
         }
         stage('Security Analysis') {
             steps {
-                appscan application: '33ffd61d-b2ff-427d-9f61-a5cb479e5060', credentials: 'hcl-key', failBuildNonCompliance: true, name: 'security-test', scanner: mobile_analyzer(hasOptions: false, target: 'C:/Users/utstulsy/.jenkins/workspace/android-p1/app/build/outputs/apk/release/app-release-unsigned.apk'), type: 'Mobile Analyzer', wait: true
+                appscan application: '33ffd61d-b2ff-427d-9f61-a5cb479e5060', credentials: 'hcl-key', name: 'security-test', scanner: mobile_analyzer(hasOptions: false, target: 'C:/Users/utstulsy/.jenkins/workspace/android-p1/app/build/outputs/apk/debug/app-debug.apk'), type: 'Mobile Analyzer', wait: true
             }
         }
         //a55a1961526e5c8ec9570a79d1d01cfbcd808358
