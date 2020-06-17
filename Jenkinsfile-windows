@@ -15,6 +15,7 @@ pipeline {
             reportFiles: 'index.html',
             reportName: 'Test Results'
           ])
+                    junit 'app/build/test-results/testDebugUnitTest/*.xml'
                 }
             }
         }
@@ -31,7 +32,9 @@ pipeline {
             reportDir: 'app/build/reports',
             reportFiles: 'lint-results.html',
             reportName: 'Code Analysis'
+
           ])
+                    androidLint canComputeNew: false, defaultEncoding: '', healthy: '', pattern: 'app/build/reports/lint-results.xml', unHealthy: ''
                 }
             }
         }
