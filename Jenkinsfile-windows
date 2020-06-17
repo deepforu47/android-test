@@ -7,14 +7,6 @@ pipeline {
             }
             post {
                 always {
-                    publishHTML(target:[
-            allowMissing: false,
-            alwaysLinkToLastBuild: false,
-            keepAll: true,
-            reportDir: 'app/build/reports/tests/testReleaseUnitTest',
-            reportFiles: 'index.html',
-            reportName: 'Test Results'
-          ])
                     junit 'app/build/test-results/testDebugUnitTest/*.xml'
                 }
             }
@@ -25,15 +17,6 @@ pipeline {
             }
             post {
                 always {
-                    publishHTML(target:[
-            allowMissing: false,
-            alwaysLinkToLastBuild: false,
-            keepAll: true,
-            reportDir: 'app/build/reports',
-            reportFiles: 'lint-results.html',
-            reportName: 'Code Analysis'
-
-          ])
                     androidLint canComputeNew: false, defaultEncoding: '', healthy: '', pattern: 'app/build/reports/lint-results.xml', unHealthy: ''
                 }
             }
@@ -49,7 +32,7 @@ pipeline {
                     scannerHome = tool 'sonarqube';
                 }
                 withSonarQubeEnv('sonarqube') { // If you have configured more than one global server connection, you can specify its name
-                    bat "${scannerHome}/bin/sonar-scanner"
+                    bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=android-test"
                 }
             }
         }
