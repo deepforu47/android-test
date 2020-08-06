@@ -17,11 +17,11 @@ pipeline {
             steps {
                 sh '/usr/local/bin/gradle clean lint'
             }
-            post {
+  /*          post {
                 always {
                     androidLint canComputeNew: false, defaultEncoding: '', healthy: '', pattern: 'app/build/reports/lint-results.xml', unHealthy: ''
                 }
-            }
+            } */
         }
         stage('Build') {
             steps {
