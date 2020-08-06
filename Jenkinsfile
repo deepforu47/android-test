@@ -34,7 +34,7 @@ pipeline {
                     scannerHome = tool 'helloscanner';
                 }
                 withSonarQubeEnv('local') { // If you have configured more than one global server connection, you can specify its name
-                    sh "/usr/local/bin/gradle sonarqube -Dsonar.projectKey=android-test"
+                    sh "/usr/local/bin/gradle sonarqube  -Dsonar.projectKey=demo1 -Dsonar.projectName=demo1 -Dsonar.projectDescription="New Project for Demo""
                 }
             }
         }
