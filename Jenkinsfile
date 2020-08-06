@@ -4,7 +4,7 @@ pipeline {
         stage('Unit Test') {
             steps {
                 
-                    sh 'gradle clean test'
+                    sh '/usr/local/bin/gradle clean test'
                 
             }
             post {
@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Static Code Analysis') {
             steps {
-                sh 'gradle clean lint'
+                sh '/usr/local/bin/gradle clean lint'
             }
             post {
                 always {
@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'gradle build -x test -x lint'
+                sh '/usr/local/bin/gradle build -x test -x lint'
             }
         }
         stage('SonarQube analysis') {
@@ -34,7 +34,7 @@ pipeline {
                     scannerHome = tool 'helloscanner';
                 }
                 withSonarQubeEnv('local') { // If you have configured more than one global server connection, you can specify its name
-                    sh "gradle sonarqube -Dsonar.projectKey=android-test"
+                    sh "/usr/local/bin/gradle sonarqube -Dsonar.projectKey=android-test"
                 }
             }
         }
