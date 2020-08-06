@@ -30,9 +30,12 @@ pipeline {
         }
         stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('local') {
-                    sh '/usr/local/bin/mvn clean package -Dsonar.projectKey=demo1 -Dsonar.projectName=demo1 -Dsonar.projectDescription="New Project for Demo" sonar:sonar'
-                    } // submitted SonarQube taskId is automatically attached to the pipeline context
+                script {
+                    scannerHome = tool 'helloscanner';
+                }
+                withSonarQubeEnv('local') { // If you have configured more than one global server connection, you can specify its name
+                    sh "gradle sonarqube -Dsonar.projectKey=android-test"
+                }
             }
         }
 
@@ -51,7 +54,7 @@ pipeline {
                 APPCENTER_API_TOKEN = credentials('appcenter-api-token')
             }
             steps {
-                appCenter apiToken: a55a1961526e5c8ec9570a79d1d01cfbcd808358,
+                appCenter apiToken: APPCENTER_API_TOKEN,
             ownerName: 'utstulsy-publicis',
             appName: 'android-test',
             pathToApp: 'app/build/outputs/apk/release/app-release-unsigned.apk',
