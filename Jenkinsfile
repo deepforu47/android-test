@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage('Unit Test') {
             steps {
-                sh 'gradlew clean test'
+                dir(mobile-android-test/source){
+                    sh './gradlew clean test'
+                }
             }
             post {
                 always {
